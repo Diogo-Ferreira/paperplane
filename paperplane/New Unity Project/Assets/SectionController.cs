@@ -8,19 +8,34 @@ public class SectionController : MonoBehaviour {
     List<Vector3> positions;
     public GameObject SitdownStudent;
     public GameObject StandupStudent;
+    private int[] studentsMap;
 
-	// Use this for initialization
-	void Start () {
+    public int[] StudentsMap
+    {
+        get
+        {
+            return studentsMap;
+        }
+
+        set
+        {
+            studentsMap = value;
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
         this.positions = new List<Vector3>();
         var positionObjects = GameObject.FindGameObjectsWithTag("StudentPosition");
         foreach(var position in positionObjects)
         {
-            positions.Add(position.transform.position);
+            if(position.transform.IsChildOf(this.transform))
+                positions.Add(position.transform.position);
         }
 
         Debug.Log(positions.ToString());
 
-        InitStudents(new int[] {1,0,1,0,1,0,1});
+        InitStudents();
 	}
 	
 	// Update is called once per frame
@@ -28,15 +43,17 @@ public class SectionController : MonoBehaviour {
 		
 	}
 
-    void InitStudents(int[] values)
+    void InitStudents()
     {
-        for(int i=0; i<values.Length; i++)
+        for(int i=0; i<studentsMap.Length; i++)
         {
-            var typeStudent = values[i] == 0 ? SitdownStudent : StandupStudent; 
+            var typeStudent = studentsMap[i] == 0 ? SitdownStudent : StandupStudent; 
             var obj = Instantiate(typeStudent) as GameObject;
 
             obj.transform.position = positions[i];
             obj.transform.Translate(0, obj.GetComponent<Renderer>().bounds.size.y/2, 0);
         }
     }
+
+
 }
