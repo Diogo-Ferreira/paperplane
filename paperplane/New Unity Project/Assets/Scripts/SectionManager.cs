@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class SectionManager : MonoBehaviour {
 
     public GameObject sectionPrefab;
@@ -11,8 +12,23 @@ public class SectionManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         sections = new List<GameObject>();
-        CreateBoard();	
-	}
+
+        foreach (Transform child in this.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        if (Application.isPlaying)
+        {
+            CreateBoard(this.nbSection);
+        }
+        else if (this.transform.childCount == 0)
+        {
+            CreateBoard(1);
+        }
+
+
+    }
 
     void Awake()
     {
@@ -23,7 +39,7 @@ public class SectionManager : MonoBehaviour {
 		
 	}
 
-    void CreateBoard()
+    void CreateBoard(int nbSection)
     {
         float h = sectionPrefab.GetComponent<Renderer>().bounds.size.z;
         Vector3 position = this.transform.position;
@@ -31,6 +47,8 @@ public class SectionManager : MonoBehaviour {
         for(int i = 0; i < nbSection; i++)
         {
             var obj = Instantiate(sectionPrefab) as GameObject;
+
+            obj.transform.parent = this.gameObject.transform;
 
             obj.transform.position = position;
             SectionController sectionController = obj.GetComponent<SectionController>() as SectionController;

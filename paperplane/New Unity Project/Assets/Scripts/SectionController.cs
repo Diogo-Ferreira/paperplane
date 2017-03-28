@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class SectionController : MonoBehaviour {
 
 
@@ -49,6 +50,7 @@ public class SectionController : MonoBehaviour {
         {
             var typeStudent = studentsMap[i] == 0 ? SitdownStudent : StandupStudent; 
             var obj = Instantiate(typeStudent) as GameObject;
+            obj.transform.parent = this.gameObject.transform;
 
             obj.transform.position = positions[i];
             obj.transform.Translate(0, obj.GetComponent<Renderer>().bounds.size.y/2, 0);
