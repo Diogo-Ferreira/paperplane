@@ -9,11 +9,12 @@ public class path : MonoBehaviour {
     public GameObject Right;
     public GameObject Middle;
 
-    public bool floatup;
+    public float accumulateur;
+
 
 	// Use this for initialization
 	void Start () {
-        floatup = false;
+        accumulateur = 0;
 	}
 	
 	// Update is called once per frame
@@ -22,16 +23,6 @@ public class path : MonoBehaviour {
         Vector3 pos = this.transform.position;
         pos.z += (float)0.1;
         this.transform.position = pos;
-
-        //floating
-        if (floatup)
-        {
-            floatingup();
-        }
-        else if (!floatup)
-        {
-            floatingdown();
-        }
 
         //rail change
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -80,27 +71,12 @@ public class path : MonoBehaviour {
         }
 	}
 
-    void floatingup()
+    void FixedUpdate()
     {
-        Vector3 pos = transform.position;
-        pos.y +=(float) 1.5 * Time.deltaTime;//Facteur à changer potentiellement
-        transform.position = pos;
-
-       // yield return new WaitForSeconds((float)0.5);
-
-        floatup = false;
-       
+        //floating
+        accumulateur += Time.deltaTime;
+        Vector3 positionFloat = this.transform.position;
+        positionFloat.y += 0.025f*Mathf.Sin(5f*accumulateur);
+        this.transform.position = positionFloat;
     }
-
-    void floatingdown()
-    {
-        Vector3 pos = transform.position;
-        pos.y -= (float)1.5 * Time.deltaTime;//Facteur à changer potentiellement
-        transform.position = pos;
-
-        //yield return new WaitForSeconds((float)0.5);
-
-        floatup = true;
-    }
-
 }
