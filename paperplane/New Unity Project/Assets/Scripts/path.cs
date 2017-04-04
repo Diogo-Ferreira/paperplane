@@ -79,4 +79,9 @@ public class path : MonoBehaviour {
         positionFloat.y += 0.025f*Mathf.Sin(5f*accumulateur);
         this.transform.position = positionFloat;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Touché");
+    }
 }
