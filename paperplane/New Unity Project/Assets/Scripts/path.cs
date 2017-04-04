@@ -82,6 +82,6 @@ public class path : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Touché");
+        Debug.Log("Touche");
     }
 }
