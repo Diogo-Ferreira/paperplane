@@ -47,7 +47,7 @@ public class SectionManager : MonoBehaviour
     {
         if (Time.fixedTime >= timeToGo)
         {
-            DestroyImmediate(sections.Dequeue());
+            //DestroyImmediate(sections.Dequeue());
             CreateSection();
             // Do your thang
             timeToGo = Time.fixedTime + 0.2f;
@@ -122,7 +122,7 @@ public class SectionManager : MonoBehaviour
         line[currentPathIndex] = 0;
 
         // Checks that we dont fill all the stugens on the line
-        if (line.Any(e => e == 0))
+        if (!line.Any(e => e == 0))
         {
             line[UnityEngine.Random.Range(0, n)] = 0;
         }
