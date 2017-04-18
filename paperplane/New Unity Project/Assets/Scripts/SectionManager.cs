@@ -19,7 +19,7 @@ public class SectionManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        timeToGo = Time.fixedTime + 0.2f;
+        timeToGo = Time.fixedTime + 0.01f;
         sections = new Queue<GameObject>();
 
         foreach (Transform child in this.transform)
@@ -47,7 +47,7 @@ public class SectionManager : MonoBehaviour
     {
         if (Time.fixedTime >= timeToGo)
         {
-            //DestroyImmediate(sections.Dequeue());
+            DestroyImmediate(sections.Dequeue());
             CreateSection();
             // Do your thang
             timeToGo = Time.fixedTime + 0.2f;
@@ -125,6 +125,11 @@ public class SectionManager : MonoBehaviour
         if (!line.Any(e => e == 0))
         {
             line[UnityEngine.Random.Range(0, n)] = 0;
+        }
+
+        if(line[0] == 1 && line[1] == 1 && line[2] == 1)
+        {
+            Debug.Log("Noooooooo");
         }
 
         return line;
