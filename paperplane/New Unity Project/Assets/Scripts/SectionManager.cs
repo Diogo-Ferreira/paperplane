@@ -50,7 +50,7 @@ public class SectionManager : MonoBehaviour
             DestroyImmediate(sections.Dequeue());
             CreateSection();
             // Do your thang
-            timeToGo = Time.fixedTime + 0.2f;
+            //timeToGo = Time.fixedTime + 0.2f;
         }
     }
 
