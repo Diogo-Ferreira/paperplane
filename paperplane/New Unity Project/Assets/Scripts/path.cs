@@ -29,22 +29,12 @@ public class path : MonoBehaviour {
         {
             if(this.transform.position.x == Middle.transform.position.x)
             {
-                /*Vector3 position = this.transform.position;
-                position.x = Right.transform.position.x;
-                this.transform.position = position;*/
-                Vector3 position = this.transform.position;
-                position.x = Mathf.Lerp(position.x, Right.transform.position.x, 1f);
-                this.transform.position = position;
+                StartCoroutine(Move_Routine(this.transform, this.transform.position, new Vector3(Right.transform.position.x, this.transform.position.y, 0)));
 
             }
             else if(this.transform.position.x == Left.transform.position.x)
             {
-                /*Vector3 position = this.transform.position;
-                position.x = Middle.transform.position.x;
-                this.transform.position = position;*/
-                Vector3 position = this.transform.position;
-                position.x = Mathf.Lerp(position.x, Middle.transform.position.x, 1f);
-                this.transform.position = position;
+                StartCoroutine(Move_Routine(this.transform, this.transform.position, new Vector3(Middle.transform.position.x, this.transform.position.y, 0)));
             }
 
         }
@@ -52,21 +42,11 @@ public class path : MonoBehaviour {
         {
             if(this.transform.position.x == Middle.transform.position.x)
             {
-                /*Vector3 position = this.transform.position;
-                position.x = Left.transform.position.x;
-                this.transform.position = position;*/
-                Vector3 position = this.transform.position;
-                position.x = Mathf.Lerp(position.x, Left.transform.position.x, 1f);
-                this.transform.position = position;
+                StartCoroutine(Move_Routine(this.transform, this.transform.position, new Vector3(Left.transform.position.x, this.transform.position.y, 0)));
             }
             else if(this.transform.position.x == Right.transform.position.x)
             {
-                /*Vector3 position = this.transform.position;
-                position.x = Middle.transform.position.x;
-                this.transform.position = position;*/
-                Vector3 position = this.transform.position;
-                position.x = Mathf.Lerp(position.x, Middle.transform.position.x, 1f);
-                this.transform.position = position;
+                StartCoroutine(Move_Routine(this.transform, this.transform.position, new Vector3(Middle.transform.position.x, this.transform.position.y, 0)));
             }
         }
 	}
@@ -83,5 +63,30 @@ public class path : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Touche");
+    }
+
+    private IEnumerator Move_Routine(Transform transform, Vector3 from, Vector3 to)
+    {
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += 2*Time.deltaTime;
+            var save = transform.position;
+            save.x = Hermite(from.x, to.x, t);
+            //save.y = Hermite(from.y, to.y, t);
+            //save.z = Hermite(from.z, to.z, t);
+            transform.position = save;
+            yield return null;
+        }
+
+        var save2 = transform.position;
+        save2.x = to.x;
+        transform.position = save2;
+    }
+
+    //Ease in out
+    public static float Hermite(float start, float end, float value)
+    {
+        return Mathf.Lerp(start, end, value * value * (3.0f - 2.0f * value));
     }
 }
