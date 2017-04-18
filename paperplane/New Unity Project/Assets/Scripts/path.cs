@@ -11,10 +11,14 @@ public class path : MonoBehaviour {
 
     public float accumulateur;
 
+    //Tell if the player is alive
+    public bool isAlive;
+
 
 	// Use this for initialization
 	void Start () {
         accumulateur = 0;
+        isAlive = true;
 	}
 	
 	// Update is called once per frame
@@ -63,6 +67,7 @@ public class path : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Touche");
+        isAlive = false;
     }
 
     private IEnumerator Move_Routine(Transform transform, Vector3 from, Vector3 to)
