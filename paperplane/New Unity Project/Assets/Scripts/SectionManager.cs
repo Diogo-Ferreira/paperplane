@@ -14,12 +14,10 @@ public class SectionManager : MonoBehaviour
 
     private int currentPathIndex = 1;
     private int difficulty = 3;
-    float timeToGo;
     private int[] map = null;
     // Use this for initialization
     void Start()
     {
-        timeToGo = Time.fixedTime + 0.01f;
         sections = new Queue<GameObject>();
 
         foreach (Transform child in this.transform)
@@ -43,22 +41,11 @@ public class SectionManager : MonoBehaviour
     {
     }
 
-    void FixedUpdate()
-    {
-        if (Time.fixedTime >= timeToGo)
-        {
-            //DestroyImmediate(sections.Dequeue());
-            CreateSection();
-            // Do your thang
-            timeToGo = Time.fixedTime + 0.2f;
-        }
-    }
-
     // Update is called once per frame
-    //void Update ()
-    //{
+    void Update()
+    {
 
-    //}
+    }
 
     void CreateBoard(int nbSection)
     {
@@ -83,7 +70,7 @@ public class SectionManager : MonoBehaviour
         return result;
     }
 
-    void CreateSection()
+    public void CreateSection()
     {
 
         float h = sectionPrefab.GetComponent<Renderer>().bounds.size.z;
@@ -102,6 +89,7 @@ public class SectionManager : MonoBehaviour
         sections.Enqueue(obj);
         position.z += h;
     }
+
 
     int[] getNewMap(int[] lastMap)
     {
@@ -146,4 +134,15 @@ public class SectionManager : MonoBehaviour
 
         return result;
     }
+
+    public void PullTrigger(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            Destroy(sections.Dequeue());
+            CreateSection();
+        }
+
+    }
+
 }
