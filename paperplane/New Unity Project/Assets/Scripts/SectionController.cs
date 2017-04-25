@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [ExecuteInEditMode]
 public class SectionController : MonoBehaviour
@@ -30,11 +31,14 @@ public class SectionController : MonoBehaviour
     {
         this.positions = new List<Vector3>();
         var positionObjects = GameObject.FindGameObjectsWithTag("StudentPosition");
-        foreach (var position in positionObjects)
+
+        //This need to be sorted by name as the positions will be mapped to an index of the studentsMap
+        foreach (var position in positionObjects.OrderBy(x => x.name))
         {
             if (position.transform.IsChildOf(this.transform))
                 positions.Add(position.transform.position);
         }
+        
 
         Debug.Log(positions.ToString());
 
