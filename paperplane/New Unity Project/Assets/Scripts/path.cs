@@ -66,8 +66,13 @@ public class path : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Touche");
-        isAlive = false;
+        
+        if(other.gameObject.tag == "StudentStandUp")
+        {
+            Debug.Log("Touche");
+            isAlive = false;
+        }
+        
     }
 
     private IEnumerator Move_Routine(Transform transform, Vector3 from, Vector3 to)
