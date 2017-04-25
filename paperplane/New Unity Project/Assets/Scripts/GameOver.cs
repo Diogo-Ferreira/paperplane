@@ -45,6 +45,6 @@ public class GameOver : MonoBehaviour {
     {
         Debug.Log("Click");
         //Restart the game
-        SceneManager.LoadScene("myscene", LoadSceneMode.Single);
+        SceneManager.LoadScene("CharacterTest", LoadSceneMode.Single);
     }
 }
