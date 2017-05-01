@@ -60,7 +60,7 @@ public class SectionController : MonoBehaviour
             obj.transform.parent = this.gameObject.transform;
 
             obj.transform.position = positions[i];
-            obj.transform.Translate(0, obj.GetComponent<Renderer>().bounds.size.y / 2, 0);
+            obj.transform.Translate(0, obj.GetComponent<Renderer>().bounds.size.y/2, 0);
         }
     }
 
