@@ -9,17 +9,16 @@ public class GameOver : MonoBehaviour {
 
     public GameObject player;
     public path path;
-    private Text[] GOText;
+    private Text GOText;
     public Button ReTryButton;
 
 	// Use this for initialization
 	void Start () {
-        GOText = FindObjectsOfType<Text>();
+        GOText = GetComponent<Text>();
         ReTryButton = FindObjectOfType<Button>();
-        foreach(Text g in GOText)
-        {
-            g.enabled = false;
-        }
+
+        GOText.enabled = false;
+
         ReTryButton.gameObject.SetActive(false);
         path = player.GetComponent<path>();
 
@@ -31,10 +30,9 @@ public class GameOver : MonoBehaviour {
 
         if (!path.isAlive)
         {
-            foreach(Text g in GOText)
-            {
-                g.enabled = true;
-            }
+
+           GOText.enabled = true;
+
 
             ReTryButton.gameObject.SetActive(true);
             //Time.timeScale = 0;
@@ -45,6 +43,6 @@ public class GameOver : MonoBehaviour {
     {
         Debug.Log("Click");
         //Restart the game
-        SceneManager.LoadScene("CharacterTest", LoadSceneMode.Single);
+        SceneManager.LoadScene("finalAurelie", LoadSceneMode.Single);
     }
 }
